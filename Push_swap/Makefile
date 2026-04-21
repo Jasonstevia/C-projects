@@ -1,28 +1,27 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-NAME = push_swap.a
+NAME = push_swap
 ft_printf_dir = ft_printf
-SRC = push_swap.c push_swap_utils.c
+SRC = handle_errors_1.c handle_errors_2.c parsing.c radix_1.c radix_2.c rules_1.c rules_2.c rules_3.c utils_1.c utils_2.c
 
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	make -C $(ft_printf_dir) 
-	cp $(ft_printf_dir)/libftprintf.a $(NAME)
-	ar rcs $(NAME) $(OBJ)
+	$(MAKE) -C $(ft_printf_dir) 
+	$(CC) $(CFLAGS) $(OBJ) $(ft_printf_dir)/libftprintf.a -o $(NAME)
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJ)
-	make clean -C $(ft_printf_dir)
+	$(MAKE) clean -C $(ft_printf_dir)
 fclean: clean
 	rm -f $(NAME)
-	make fclean -C $(ft_printf_dir)
+	$(MAKE) fclean -C $(ft_printf_dir)
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re
